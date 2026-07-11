@@ -12,3 +12,4 @@ F:\MiniWalet\MiniWallet\obj\Debug\net10.0\refint\MiniWallet.dll
 F:\MiniWalet\MiniWallet\obj\Debug\net10.0\MiniWallet.pdb
 F:\MiniWalet\MiniWallet\obj\Debug\net10.0\MiniWallet.genruntimeconfig.cache
 F:\MiniWalet\MiniWallet\obj\Debug\net10.0\ref\MiniWallet.dll
+F:\MiniWalet\miniwallet\obj\Debug\net10.0\MiniWallet.sourcelink.json
