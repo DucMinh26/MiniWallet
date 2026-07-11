@@ -1,0 +1,14 @@
+F:\MiniWalet\MiniWallet\bin\Debug\net10.0\MiniWallet.exe
+F:\MiniWalet\MiniWallet\bin\Debug\net10.0\MiniWallet.deps.json
+F:\MiniWalet\MiniWallet\bin\Debug\net10.0\MiniWallet.runtimeconfig.json
+F:\MiniWalet\MiniWallet\bin\Debug\net10.0\MiniWallet.dll
+F:\MiniWalet\MiniWallet\bin\Debug\net10.0\MiniWallet.pdb
+F:\MiniWalet\MiniWallet\obj\Debug\net10.0\MiniWallet.GeneratedMSBuildEditorConfig.editorconfig
+F:\MiniWalet\MiniWallet\obj\Debug\net10.0\MiniWallet.AssemblyInfoInputs.cache
+F:\MiniWalet\MiniWallet\obj\Debug\net10.0\MiniWallet.AssemblyInfo.cs
+F:\MiniWalet\MiniWallet\obj\Debug\net10.0\MiniWallet.csproj.CoreCompileInputs.cache
+F:\MiniWalet\MiniWallet\obj\Debug\net10.0\MiniWallet.dll
+F:\MiniWalet\MiniWallet\obj\Debug\net10.0\refint\MiniWallet.dll
+F:\MiniWalet\MiniWallet\obj\Debug\net10.0\MiniWallet.pdb
+F:\MiniWalet\MiniWallet\obj\Debug\net10.0\MiniWallet.genruntimeconfig.cache
+F:\MiniWalet\MiniWallet\obj\Debug\net10.0\ref\MiniWallet.dll
