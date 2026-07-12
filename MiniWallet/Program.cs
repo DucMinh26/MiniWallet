@@ -1,36 +1,35 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-
-Console.WriteLine("Bat dau tai trang Dashboard...");
-Stopwatch sw = Stopwatch.StartNew(); // Bật đồng hồ bấm giờ
 
 // =========================================================
-// PHẦN 1: TỐI ƯU HÓA ĐOẠN CODE NÀY (DÙNG Task.WhenAll)
-// =========================================================
-// Xóa 2 dòng dưới đây và viết lại bằng Task.WhenAll để chạy song song.
-
-Task<decimal> balance = GetBalanceAsync();
-Task<int> unreadMessages = GetUnreadMessagesAsync();
-await Task.WhenAll(balance, unreadMessages);
-
+// PHẦN 1: NƠI VIẾT CODE CHẠY CHÍNH (HOÀN THÀNH ĐOẠN NÀY)
 // =========================================================
 
-sw.Stop(); // Tắt đồng hồ
-Console.WriteLine($"Tai xong! So du: {balance.Result} | Tin nhan: {unreadMessages.Result}");
-Console.WriteLine($"Tong thoi gian: {sw.ElapsedMilliseconds} ms"); // Kết quả phải xấp xỉ 3000 ms
+// Yêu cầu 1: Định nghĩa công thức tính phí 2% (0.02m)
+Func<decimal, decimal> standardFee = (sotien) => sotien * 0.02m;
+
+// Yêu cầu 2: Định nghĩa công thức miễn phí (trả về 0m)
+Func<decimal, decimal> vipFee = (sotien) => sotien * 0m;
+
+// Yêu cầu 3: Gọi hàm ProcessTransaction
+Console.WriteLine("--- GIAO DỊCH USER A (THƯỜNG) ---");
+// Gọi hàm ProcessTransaction với số tiền 1000m và công thức standardFee
+ProcessTransaction(1000, standardFee);
+
+Console.WriteLine("\n--- GIAO DỊCH USER B (VIP) ---");
+// Gọi hàm ProcessTransaction với số tiền 1000m và công thức vipFee
+ProcessTransaction(1000, vipFee);
+
 
 // =========================================================
-// PHẦN 2: CÁC HÀM XỬ LÝ (GIỮ NGUYÊN KHÔNG SỬA)
+// PHẦN 2: HÀM XỬ LÝ LÕI (GIỮ NGUYÊN KHÔNG SỬA)
 // =========================================================
-static async Task<decimal> GetBalanceAsync()
+static void ProcessTransaction(decimal amount, Func<decimal, decimal> feeCalculator)
 {
-    await Task.Delay(2000);
-    return 50000;
-}
+    Console.WriteLine($"- So tien giao dich: {amount}");
 
-static async Task<int> GetUnreadMessagesAsync()
-{
-    await Task.Delay(3000);
-    return 5;
+    // Gọi thực thi hàm công thức được truyền vào từ bên ngoài
+    decimal fee = feeCalculator(amount);
+
+    Console.WriteLine($"- Phi giao dich he thong thu: {fee}");
+    Console.WriteLine($"- Khach hang bi tru tong cong: {amount + fee}");
 }

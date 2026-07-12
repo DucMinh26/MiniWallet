@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MiniWallet")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+29f01077722a572e669145abf1813048bbd77860")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bce3da21078033f356fa68b3cb0c0d7bca358ad6")]
 [assembly: System.Reflection.AssemblyProductAttribute("MiniWallet")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MiniWallet")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
