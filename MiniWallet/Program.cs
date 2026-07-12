@@ -3,37 +3,25 @@
 // =========================================================
 // PHẦN 1: NƠI VIẾT CODE CHẠY CHÍNH
 // =========================================================
+decimal accountBalance = 12500000m; // 12.5 triệu
 
-// Yêu cầu 2: Khởi tạo response bọc một số decimal (500000m)
-ApiResponse<decimal> balanceResponse = new ApiResponse<decimal>
-{
-    IsSuccess = true,
-    Data = 500000m,
-    ErrorMessage = null
-};
+// YÊU CẦU 2: Gọi Extension Method bạn vừa viết thông qua biến accountBalance
+string displayBalance = accountBalance.ToVndCurrency();
 
-// Yêu cầu 3: Khởi tạo response bọc một chuỗi string, báo lỗi "So du khong du"
-ApiResponse<string> errorResponse = new ApiResponse<string>
-{
-    IsSuccess = false,
-    Data = null,
-    ErrorMessage = "So du khong du"
-};
-
-
-Console.WriteLine($"API 1 - Success: {balanceResponse.IsSuccess} | Data: {balanceResponse.Data}");
-Console.WriteLine($"API 2 - Success: {errorResponse.IsSuccess} | Error: {errorResponse.ErrorMessage}");
+Console.WriteLine($"So du cua ban la: {displayBalance}");
+// Kết quả in ra màn hình phải đúng y hệt như sau: So du cua ban la: 12,500,000 VND
 
 
 // =========================================================
-// PHẦN 2: NƠI ĐỊNH NGHĨA CLASS GENERICS
+// PHẦN 2: ĐỊNH NGHĨA EXTENSION METHOD
 // =========================================================
 
-// Yêu cầu 1: Hoàn thiện class ApiResponse<T>
-public class ApiResponse<T>
+// YÊU CẦU 1: Hoàn thiện lớp tĩnh và phương thức tĩnh này
+public static class DecimalExtensions
 {
-    // Viết 3 properties: IsSuccess, Data, ErrorMessage vào đây
-    public bool IsSuccess { get; set; }
-    public T Data { get; set; }
-    public string ErrorMessage { get; set; }
+    // Viết hàm ToVndCurrency() tại đây
+    public static string ToVndCurrency(this decimal soTien)
+    {
+        return soTien.ToString("#,##0" + " VND");
+    }
 }
