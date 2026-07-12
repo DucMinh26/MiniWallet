@@ -1,35 +1,39 @@
 ﻿using System;
 
 // =========================================================
-// PHẦN 1: NƠI VIẾT CODE CHẠY CHÍNH (HOÀN THÀNH ĐOẠN NÀY)
+// PHẦN 1: NƠI VIẾT CODE CHẠY CHÍNH
 // =========================================================
 
-// Yêu cầu 1: Định nghĩa công thức tính phí 2% (0.02m)
-Func<decimal, decimal> standardFee = (sotien) => sotien * 0.02m;
-
-// Yêu cầu 2: Định nghĩa công thức miễn phí (trả về 0m)
-Func<decimal, decimal> vipFee = (sotien) => sotien * 0m;
-
-// Yêu cầu 3: Gọi hàm ProcessTransaction
-Console.WriteLine("--- GIAO DỊCH USER A (THƯỜNG) ---");
-// Gọi hàm ProcessTransaction với số tiền 1000m và công thức standardFee
-ProcessTransaction(1000, standardFee);
-
-Console.WriteLine("\n--- GIAO DỊCH USER B (VIP) ---");
-// Gọi hàm ProcessTransaction với số tiền 1000m và công thức vipFee
-ProcessTransaction(1000, vipFee);
-
-
-// =========================================================
-// PHẦN 2: HÀM XỬ LÝ LÕI (GIỮ NGUYÊN KHÔNG SỬA)
-// =========================================================
-static void ProcessTransaction(decimal amount, Func<decimal, decimal> feeCalculator)
+// Yêu cầu 2: Khởi tạo response bọc một số decimal (500000m)
+ApiResponse<decimal> balanceResponse = new ApiResponse<decimal>
 {
-    Console.WriteLine($"- So tien giao dich: {amount}");
+    IsSuccess = true,
+    Data = 500000m,
+    ErrorMessage = null
+};
 
-    // Gọi thực thi hàm công thức được truyền vào từ bên ngoài
-    decimal fee = feeCalculator(amount);
+// Yêu cầu 3: Khởi tạo response bọc một chuỗi string, báo lỗi "So du khong du"
+ApiResponse<string> errorResponse = new ApiResponse<string>
+{
+    IsSuccess = false,
+    Data = null,
+    ErrorMessage = "So du khong du"
+};
 
-    Console.WriteLine($"- Phi giao dich he thong thu: {fee}");
-    Console.WriteLine($"- Khach hang bi tru tong cong: {amount + fee}");
+
+Console.WriteLine($"API 1 - Success: {balanceResponse.IsSuccess} | Data: {balanceResponse.Data}");
+Console.WriteLine($"API 2 - Success: {errorResponse.IsSuccess} | Error: {errorResponse.ErrorMessage}");
+
+
+// =========================================================
+// PHẦN 2: NƠI ĐỊNH NGHĨA CLASS GENERICS
+// =========================================================
+
+// Yêu cầu 1: Hoàn thiện class ApiResponse<T>
+public class ApiResponse<T>
+{
+    // Viết 3 properties: IsSuccess, Data, ErrorMessage vào đây
+    public bool IsSuccess { get; set; }
+    public T Data { get; set; }
+    public string ErrorMessage { get; set; }
 }
