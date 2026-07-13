@@ -1,5 +1,3 @@
-
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace MiniWalletAPI
@@ -25,6 +23,55 @@ namespace MiniWalletAPI
             };
 
             return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetActionResultById([FromRoute] string id)
+        {
+            var transaction = new TransactionRequest
+            {
+                TransactionId = id,
+                Amount = 50000,
+                Type = "Deposit",
+                Status = "Success"
+            };
+
+            var response = new ApiResponse<TransactionRequest>
+            {
+                IsSuccess = true,
+                Data = transaction,
+                ErrorMessage = null
+            };
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public IActionResult CreateTransaction([FromBody] TransactionRequest request)
+        {
+            if (request.Amount < 0)
+            {
+                var errormessage = new ApiResponse<object>
+                {
+                    IsSuccess = false,
+                    Data = null,
+                    ErrorMessage = "tien khong duoc < 0"
+                };
+
+                return BadRequest(errormessage);
+            }
+
+            request.TransactionId = Guid.NewGuid().ToString();
+            request.Status = "Pending";
+
+            var result = new ApiResponse<TransactionRequest>
+            {
+                IsSuccess = true,
+                Data = request,
+                ErrorMessage = null
+            };
+
+            return Ok(result);
         }
 
 
