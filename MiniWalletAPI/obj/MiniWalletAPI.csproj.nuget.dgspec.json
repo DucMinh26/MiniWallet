@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "f:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj": {}
+    "F:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj": {}
   },
   "projects": {
-    "f:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj": {
+    "F:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "f:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj",
+        "projectUniqueName": "F:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj",
         "projectName": "MiniWalletAPI",
-        "projectPath": "f:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj",
+        "projectPath": "F:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj",
         "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-        "outputPath": "f:\\MiniWalet\\MiniWalletAPI\\obj\\",
+        "outputPath": "F:\\MiniWalet\\MiniWalletAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -49,6 +49,12 @@
               "version": "[10.0.1, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[10.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[10.0.9, )"
             }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MiniWalletAPI.Data;
 
 namespace MiniWalletAPI
 {
@@ -6,24 +7,12 @@ namespace MiniWalletAPI
     [Route("api/[controller]")]
     public class TransactionsController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetTransactions()
+        private readonly AppDbContext _context;
+        public TransactionsController(AppDbContext context)
         {
-            var listTransactions = new List<TransactionRequest>
-            {
-                new TransactionRequest { TransactionId = "TXN-01", Amount = 100000, Type = "Deposit", Status = "Success" },
-                new TransactionRequest { TransactionId = "TXN-02", Amount = 1000000, Type = "Withdraw", Status = "False" }
-            };
-
-            var response = new ApiResponse<List<TransactionRequest>>
-            {
-                IsSuccess = true,
-                Data = listTransactions,
-                ErrorMessage = null
-            };
-
-            return Ok(response);
+            _context = context;
         }
+
 
         [HttpGet("{id}")]
         public IActionResult GetActionResultById([FromRoute] string id)
@@ -61,20 +50,25 @@ namespace MiniWalletAPI
                 return BadRequest(errormessage);
             }
 
-            request.TransactionId = Guid.NewGuid().ToString();
-            request.Status = "Pending";
-
-            var result = new ApiResponse<TransactionRequest>
+            var newTransaction = new Transaction
             {
-                IsSuccess = true,
-                Data = request,
-                ErrorMessage = null
+                Id = Guid.NewGuid(),
+                Amount = request.Amount,
+                Type = request.Type,
+                Status = "Pending",
+                CreatedAt = DateTime.Now
             };
 
-            return Ok(result);
+            _context.Transactions.Add(newTransaction);
+            _context.SaveChanges();
+
+            return Ok(new ApiResponse<Transaction>
+            {
+                IsSuccess = true,
+                Data = newTransaction,
+                ErrorMessage = null
+            });
         }
-
-
     }
 
     public class TransactionRequest
