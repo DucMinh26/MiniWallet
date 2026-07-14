@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj": {}
+    "f:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj": {}
   },
   "projects": {
-    "F:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj": {
+    "f:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj",
+        "projectUniqueName": "f:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj",
         "projectName": "MiniWalletAPI",
-        "projectPath": "F:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj",
+        "projectPath": "f:\\MiniWalet\\MiniWalletAPI\\MiniWalletAPI.csproj",
         "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-        "outputPath": "F:\\MiniWalet\\MiniWalletAPI\\obj\\",
+        "outputPath": "f:\\MiniWalet\\MiniWalletAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -47,6 +47,10 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[10.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[10.0.9, )"
             }
           },
           "imports": [
