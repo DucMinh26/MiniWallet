@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MiniWalletAPI.Data;
 
 namespace MiniWalletAPI
@@ -13,22 +14,38 @@ namespace MiniWalletAPI
             _context = context;
         }
 
-
-        [HttpGet("{id}")]
-        public IActionResult GetActionResultById([FromRoute] string id)
+        [HttpGet]
+        public async Task<IActionResult> GetTransactions()
         {
-            var transaction = new TransactionRequest
-            {
-                TransactionId = id,
-                Amount = 50000,
-                Type = "Deposit",
-                Status = "Success"
-            };
+            var transactionFromDb = await _context.Transactions.ToListAsync();
 
-            var response = new ApiResponse<TransactionRequest>
+            if (transactionFromDb == null)
+            {
+                return NotFound();
+            }
+
+            var result = new ApiResponse<List<Transaction>>
             {
                 IsSuccess = true,
-                Data = transaction,
+                Data = transactionFromDb,
+                ErrorMessage = null
+            };
+
+            return Ok(transactionFromDb);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetActionResultById([FromRoute] Guid id)
+        {
+            var transactionId = await _context.Transactions.FindAsync(id);
+
+            if (transactionId == null)
+            {
+                return NotFound();
+            }
+            var response = new ApiResponse<Transaction>
+            {
+                IsSuccess = true,
+                Data = transactionId,
                 ErrorMessage = null
             };
 
@@ -36,7 +53,7 @@ namespace MiniWalletAPI
         }
 
         [HttpPost]
-        public IActionResult CreateTransaction([FromBody] TransactionRequest request)
+        public async Task<IActionResult> CreateTransaction([FromBody] TransactionRequest request)
         {
             if (request.Amount < 0)
             {
@@ -60,7 +77,7 @@ namespace MiniWalletAPI
             };
 
             _context.Transactions.Add(newTransaction);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Ok(new ApiResponse<Transaction>
             {
