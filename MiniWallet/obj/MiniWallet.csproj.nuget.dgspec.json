@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\MiniWalet\\miniwallet\\MiniWallet.csproj": {}
+    "F:\\MiniWalet\\MiniWallet\\MiniWallet.csproj": {}
   },
   "projects": {
-    "F:\\MiniWalet\\miniwallet\\MiniWallet.csproj": {
+    "F:\\MiniWalet\\MiniWallet\\MiniWallet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\MiniWalet\\miniwallet\\MiniWallet.csproj",
+        "projectUniqueName": "F:\\MiniWalet\\MiniWallet\\MiniWallet.csproj",
         "projectName": "MiniWallet",
-        "projectPath": "F:\\MiniWalet\\miniwallet\\MiniWallet.csproj",
+        "projectPath": "F:\\MiniWalet\\MiniWallet\\MiniWallet.csproj",
         "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-        "outputPath": "F:\\MiniWalet\\miniwallet\\obj\\",
+        "outputPath": "F:\\MiniWalet\\MiniWallet\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config"

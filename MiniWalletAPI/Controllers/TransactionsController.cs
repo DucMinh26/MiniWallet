@@ -17,21 +17,27 @@ namespace MiniWalletAPI
         [HttpGet]
         public async Task<IActionResult> GetTransactions()
         {
-            var transactionFromDb = await _context.Transactions.ToListAsync();
+            var transactionFromDb = await _context.Transactions
+                                        .Select(t=> new TransactionResponseDto
+                                        {
+                                            Amount = t.Amount,
+                                            Type = t.Type,
+                                            Status = t.Status
+                                        }).ToListAsync();
 
             if (transactionFromDb == null)
             {
                 return NotFound();
             }
 
-            var result = new ApiResponse<List<Transaction>>
+            var result = new ApiResponse<List<TransactionResponseDto>>
             {
                 IsSuccess = true,
                 Data = transactionFromDb,
                 ErrorMessage = null
             };
 
-            return Ok(transactionFromDb);
+            return Ok(result);
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetActionResultById([FromRoute] Guid id)
@@ -101,5 +107,12 @@ namespace MiniWalletAPI
         public bool IsSuccess { get; set; }
         public T Data { get; set; }
         public string ErrorMessage { get; set; }
+    }
+    
+    public class TransactionResponseDto
+    {
+        public decimal Amount{get;set;}
+        public string Type{get;set;}
+        public string Status{get;set;}
     }
 }
