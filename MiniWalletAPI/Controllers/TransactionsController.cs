@@ -18,7 +18,7 @@ namespace MiniWalletAPI
         public async Task<IActionResult> GetTransactions()
         {
             var transactionFromDb = await _context.Transactions
-                                        .Select(t=> new TransactionResponseDto
+                                        .Select(t => new TransactionResponseDto
                                         {
                                             Amount = t.Amount,
                                             Type = t.Type,
@@ -92,7 +92,58 @@ namespace MiniWalletAPI
                 ErrorMessage = null
             });
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateTransactionStatus([FromRoute] Guid id, [FromBody] UpdateStatusRequest request)
+        {
+            var transaction = await _context.Transactions.FindAsync(id);
+            if (transaction == null)
+            {
+                return NotFound(new ApiResponse<object>
+                {
+                    IsSuccess = false,
+                    ErrorMessage = "khong tim thay giao dich"
+                });
+            }
+
+            transaction.Status = request.NewStatus;
+            await _context.SaveChangesAsync();
+
+            return Ok(new ApiResponse<Transaction>
+            {
+                IsSuccess = true,
+                Data = transaction,
+                ErrorMessage = null
+            });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Deletetransaction([FromRoute] Guid id)
+        {
+            var transaction = await _context.Transactions.FindAsync(id);
+            if (transaction == null)
+            {
+                return NotFound(new ApiResponse<object>
+                {
+                    IsSuccess = false,
+                    Data = null,
+                    ErrorMessage = "khong tim thay user"
+                });
+            }
+
+            _context.Transactions.Remove(transaction);
+            await _context.SaveChangesAsync();
+
+            return Ok(new ApiResponse<string>
+            {
+                IsSuccess = true,
+                Data = "xoa thanh cong",
+                ErrorMessage = null
+            });
+        }
     }
+
+
 
     public class TransactionRequest
     {
@@ -108,11 +159,16 @@ namespace MiniWalletAPI
         public T Data { get; set; }
         public string ErrorMessage { get; set; }
     }
-    
+
     public class TransactionResponseDto
     {
-        public decimal Amount{get;set;}
-        public string Type{get;set;}
-        public string Status{get;set;}
+        public decimal Amount { get; set; }
+        public string Type { get; set; }
+        public string Status { get; set; }
+    }
+
+    public class UpdateStatusRequest
+    {
+        public string NewStatus { get; set; }
     }
 }
