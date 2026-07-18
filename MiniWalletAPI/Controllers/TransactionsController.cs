@@ -16,9 +16,16 @@ namespace MiniWalletAPI
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTransactions()
+        public async Task<IActionResult> GetTransactions([FromQuery] int pageNumber = 1,[FromQuery] int pageSize = 10 )
         {
+            if(pageNumber < 1) pageNumber = 1;
+
+            var skip = (pageNumber -1)*pageSize;
+            
             var transactionFromDb = await _context.Transactions
+                                        .OrderByDescending(t=>t.CreatedAt)
+                                        .Skip(skip)
+                                        .Take(pageSize)
                                         .Select(t => new TransactionResponseDto
                                         {
                                             Amount = t.Amount,
