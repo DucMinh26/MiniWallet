@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiniWalletAPI.Data;
@@ -61,17 +62,6 @@ namespace MiniWalletAPI
         [HttpPost]
         public async Task<IActionResult> CreateTransaction([FromBody] TransactionRequest request)
         {
-            if (request.Amount < 0)
-            {
-                var errormessage = new ApiResponse<object>
-                {
-                    IsSuccess = false,
-                    Data = null,
-                    ErrorMessage = "tien khong duoc < 0"
-                };
-
-                return BadRequest(errormessage);
-            }
 
             var newTransaction = new Transaction
             {
@@ -147,10 +137,10 @@ namespace MiniWalletAPI
 
     public class TransactionRequest
     {
-        public string TransactionId { get; set; }
+        [Range(1, double.MaxValue, ErrorMessage = "tien phai lon hon 0")]
         public decimal Amount { get; set; }
+        [Required]
         public string Type { get; set; }
-        public string Status { get; set; }
     }
 
     public class ApiResponse<T>
