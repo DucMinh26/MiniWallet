@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MiniWalletAPI.Data;
@@ -6,6 +7,7 @@ using MiniWalletAPI.Data;
 namespace MiniWalletAPI
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class TransactionsController : ControllerBase
     {
@@ -16,14 +18,14 @@ namespace MiniWalletAPI
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTransactions([FromQuery] int pageNumber = 1,[FromQuery] int pageSize = 10 )
+        public async Task<IActionResult> GetTransactions([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            if(pageNumber < 1) pageNumber = 1;
+            if (pageNumber < 1) pageNumber = 1;
 
-            var skip = (pageNumber -1)*pageSize;
-            
+            var skip = (pageNumber - 1) * pageSize;
+
             var transactionFromDb = await _context.Transactions
-                                        .OrderByDescending(t=>t.CreatedAt)
+                                        .OrderByDescending(t => t.CreatedAt)
                                         .Skip(skip)
                                         .Take(pageSize)
                                         .Select(t => new TransactionResponseDto
