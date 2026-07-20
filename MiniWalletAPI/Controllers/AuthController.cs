@@ -6,6 +6,12 @@ namespace MiniWalletAPI.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
+        private readonly IConfiguration _config;
+        public AuthController(IConfiguration config)
+        {
+            _config = config;
+        }
+
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest request)
         {
@@ -21,7 +27,9 @@ namespace MiniWalletAPI.Controllers
                 return Unauthorized(errorMessage);
             }
 
-            string token = generateFakeJwtToken(request.Username);
+            string token = _config["JwtSecret"];
+
+            Console.WriteLine($"[TEST] Secret Key cua he thong la: {token}");
 
             var successResponse = new ApiResponse<string>
             {
@@ -34,10 +42,6 @@ namespace MiniWalletAPI.Controllers
             return Ok(successResponse);
         }
 
-        private string generateFakeJwtToken(string username)
-        {
-            return $"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.FakeTokenFor_{username}.{Guid.NewGuid()}";
-        }
     }
 
     public class LoginRequest
