@@ -1,5 +1,8 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 namespace MiniWalletAPI.Controllers
 {
     [ApiController]
@@ -29,17 +32,40 @@ namespace MiniWalletAPI.Controllers
 
             string token = _config["JwtSecret"];
 
-            Console.WriteLine($"[TEST] Secret Key cua he thong la: {token}");
+            string realToken = GenerateJwtToken(request.Username, token);
 
             var successResponse = new ApiResponse<string>
             {
                 IsSuccess = true,
-                Data = token,
+                Data = realToken,
                 ErrorMessage = null
 
             };
 
             return Ok(successResponse);
+        }
+
+        private string GenerateJwtToken(string username, string secretKey)
+        {
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, username),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Role, "admin")
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: "MiniWalletSystem",
+                audience: "MiniWalletUser",
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials:cred
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
     }
